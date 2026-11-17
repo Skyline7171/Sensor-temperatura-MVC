@@ -1,0 +1,307 @@
+﻿@{
+    ViewBag.Title = "Monitor de temperatura";
+}
+
+<div class="container">
+
+    <h4 class="center-align">
+        Monitor de temperatura
+    </h4>
+
+    <div class="row">
+
+        <!-- Selección del dispositivo -->
+        <div class="input-field col s12 m6">
+            <select id="dispositivo">
+                <option value="" disabled selected>
+                    Selecciona un dispositivo
+                </option>
+            </select>
+
+            <label>Dispositivo</label>
+        </div>
+
+        <!-- Selección del puerto COM -->
+        <div class="input-field col s12 m6">
+            <select id="puerto">
+                <option value="" disabled selected>
+                    Selecciona un puerto
+                </option>
+            </select>
+
+            <label>Puerto serial</label>
+        </div>
+
+    </div>
+
+    <!-- Botón de conexión -->
+    <div class="center-align">
+        <button id="btnConectar"
+                class="btn waves-effect waves-light">
+            Conectar
+        </button>
+    </div>
+
+    <button id="btnDesconectar"
+            class="btn red waves-effect waves-light"
+            disabled>
+        Desconectar
+    </button>
+
+    <!-- Estado de conexión -->
+    <div class="center-align">
+        <p id="estadoConexion">
+            Desconectado
+        </p>
+    </div>
+
+    <!-- Tarjeta de temperatura -->
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+
+            <div class="card">
+                <div class="card-content center-align">
+
+                    <span class="card-title">
+                        Temperatura actual
+                    </span>
+
+                    <h3 id="temperatura">
+                        -- °C
+                    </h3>
+
+                    <p id="mensaje">
+                        Esperando conexión...
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Botón para solicitar temperatura -->
+    <div class="center-align">
+        <button id="btnLeer"
+                class="btn waves-effect waves-light"
+                disabled>
+            Actualizar temperatura
+        </button>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            cargarDispositivos();
+            cargarPuertos();
+
+        });
+
+        function cargarDispositivos() {
+
+            $.ajax({
+                url: '@Url.Action("ObtenerDispositivos", "Sensor")',
+                type: 'GET',
+
+                success: function (respuesta) {
+
+                    if (respuesta.exito) {
+
+                        var selector = $('#dispositivo');
+
+                        respuesta.dispositivos.forEach(function (dispositivo) {
+
+                            selector.append(
+                                $('<option>', {
+                                    value: dispositivo.IdDispositivo,
+                                    text: dispositivo.Nombre
+                                })
+                            );
+
+                        });
+
+                        M.FormSelect.init(selector);
+
+                    }
+
+                },
+
+                error: function () {
+                    alert('No se pudieron cargar los dispositivos.');
+                }
+            });
+
+        }
+
+        function cargarPuertos() {
+
+            $.ajax({
+                url: '@Url.Action("ObtenerPuertos", "Sensor")',
+                type: 'GET',
+
+                success: function (respuesta) {
+
+                    if (respuesta.exito) {
+
+                        var selector = $('#puerto');
+
+                        respuesta.puertos.forEach(function (puerto) {
+
+                            selector.append(
+                                $('<option>', {
+                                    value: puerto,
+                                    text: puerto
+                                })
+                            );
+
+                        });
+
+                        M.FormSelect.init(selector);
+
+                    }
+
+                },
+
+                error: function () {
+                    alert('No se pudieron cargar los puertos seriales.');
+                }
+            });
+
+        }
+
+        $('#btnConectar').click(function () {
+
+            var nombrePuerto = $('#puerto').val();
+
+            if (!nombrePuerto) {
+                alert('Selecciona un puerto serial.');
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("Conectar", "Sensor")',
+                type: 'POST',
+                data: {
+                    nombrePuerto: nombrePuerto
+                },
+
+                success: function (respuesta) {
+
+                    if (respuesta.exito) {
+
+                        $('#btnConectar').prop('disabled', true);
+                        $('#btnDesconectar').prop('disabled', false);
+
+                        $('#estadoConexion')
+                            .text('Conectado a ' + nombrePuerto)
+                            .removeClass('red-text')
+                            .addClass('green-text');
+
+                        $('#btnLeer').prop('disabled', false);
+
+                    } else {
+
+                        $('#estadoConexion')
+                            .text(respuesta.mensaje)
+                            .removeClass('green-text')
+                            .addClass('red-text');
+
+                    }
+
+                },
+
+                error: function () {
+                    alert('Ocurrió un error al intentar conectar.');
+                }
+            });
+
+        });
+
+        $('#btnDesconectar').click(function () {
+
+            $.ajax({
+                url: '@Url.Action("Desconectar", "Sensor")',
+                type: 'POST',
+
+                success: function (respuesta) {
+
+                    if (respuesta.exito) {
+
+                        $('#estadoConexion')
+                            .text('Desconectado')
+                            .removeClass('green-text')
+                            .addClass('red-text');
+
+                        $('#btnConectar').prop('disabled', false);
+                        $('#btnDesconectar').prop('disabled', true);
+                        $('#btnLeer').prop('disabled', true);
+
+                        $('#temperatura').text('-- °C');
+                        $('#mensaje').text(respuesta.mensaje);
+
+                    } else {
+
+                        alert(respuesta.mensaje);
+
+                    }
+
+                },
+
+                error: function () {
+                    alert('Ocurrió un error al desconectar.');
+                }
+            });
+
+        });
+
+        $('#btnLeer').click(function () {
+
+            var idDispositivo = $('#dispositivo').val();
+
+            if (!idDispositivo) {
+                alert('Selecciona un dispositivo.');
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("Leer", "Sensor")',
+                type: 'POST',
+                data: {
+                    idDispositivo: idDispositivo
+                },
+
+                success: function (respuesta) {
+
+                    if (respuesta.exito) {
+
+                        $('#temperatura').text(
+                            respuesta.temperatura + ' °C'
+                        );
+
+                        $('#mensaje')
+                            .text(respuesta.mensaje)
+                            .removeClass('red-text')
+                            .addClass('green-text');
+
+                    } else {
+
+                        $('#mensaje')
+                            .text(respuesta.mensaje)
+                            .removeClass('green-text')
+                            .addClass('red-text');
+
+                    }
+
+                },
+
+                error: function () {
+                    alert('Ocurrió un error al solicitar la temperatura.');
+                }
+            });
+
+        });
+    </script>
+}

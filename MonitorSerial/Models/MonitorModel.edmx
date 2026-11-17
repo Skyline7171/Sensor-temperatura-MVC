@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MonitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dispositivo">
+          <Key>
+            <PropertyRef Name="IdDispositivo" />
+          </Key>
+          <Property Name="IdDispositivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PuertoCOM" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lectura">
+          <Key>
+            <PropertyRef Name="IdLectura" />
+          </Key>
+          <Property Name="IdLectura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDispositivo" Type="int" Nullable="false" />
+          <Property Name="Temperatura" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime2" Precision="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Lectura_Dispositivo">
+          <End Role="Dispositivo" Type="Self.Dispositivo" Multiplicity="1" />
+          <End Role="Lectura" Type="Self.Lectura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispositivo">
+              <PropertyRef Name="IdDispositivo" />
+            </Principal>
+            <Dependent Role="Lectura">
+              <PropertyRef Name="IdDispositivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MonitorModelStoreContainer">
+          <EntitySet Name="Dispositivo" EntityType="Self.Dispositivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lectura" EntityType="Self.Lectura" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Lectura_Dispositivo" Association="Self.FK_Lectura_Dispositivo">
+            <End Role="Dispositivo" EntitySet="Dispositivo" />
+            <End Role="Lectura" EntitySet="Lectura" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MonitorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dispositivo">
+          <Key>
+            <PropertyRef Name="IdDispositivo" />
+          </Key>
+          <Property Name="IdDispositivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PuertoCOM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Lectura" Relationship="Self.FK_Lectura_Dispositivo" FromRole="Dispositivo" ToRole="Lectura" />
+        </EntityType>
+        <EntityType Name="Lectura">
+          <Key>
+            <PropertyRef Name="IdLectura" />
+          </Key>
+          <Property Name="IdLectura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDispositivo" Type="Int32" Nullable="false" />
+          <Property Name="Temperatura" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Dispositivo" Relationship="Self.FK_Lectura_Dispositivo" FromRole="Lectura" ToRole="Dispositivo" />
+        </EntityType>
+        <Association Name="FK_Lectura_Dispositivo">
+          <End Role="Dispositivo" Type="Self.Dispositivo" Multiplicity="1" />
+          <End Role="Lectura" Type="Self.Lectura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispositivo">
+              <PropertyRef Name="IdDispositivo" />
+            </Principal>
+            <Dependent Role="Lectura">
+              <PropertyRef Name="IdDispositivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MonitorModelConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dispositivo" EntityType="Self.Dispositivo" />
+          <EntitySet Name="Lectura" EntityType="Self.Lectura" />
+          <AssociationSet Name="FK_Lectura_Dispositivo" Association="Self.FK_Lectura_Dispositivo">
+            <End Role="Dispositivo" EntitySet="Dispositivo" />
+            <End Role="Lectura" EntitySet="Lectura" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MonitorModelStoreContainer" CdmEntityContainer="MonitorModelConnection">
+          <EntitySetMapping Name="Dispositivo">
+            <EntityTypeMapping TypeName="MonitorModel.Dispositivo">
+              <MappingFragment StoreEntitySet="Dispositivo">
+                <ScalarProperty Name="IdDispositivo" ColumnName="IdDispositivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PuertoCOM" ColumnName="PuertoCOM" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lectura">
+            <EntityTypeMapping TypeName="MonitorModel.Lectura">
+              <MappingFragment StoreEntitySet="Lectura">
+                <ScalarProperty Name="IdLectura" ColumnName="IdLectura" />
+                <ScalarProperty Name="IdDispositivo" ColumnName="IdDispositivo" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

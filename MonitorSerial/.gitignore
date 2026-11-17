@@ -1,0 +1,50 @@
+﻿# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Carpetas de compilación
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+
+# Paquetes NuGet restaurables
+packages/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+*.cache
+*.bak
+*.old
+
+# Publicaciones y despliegues
+[Pp]ublish/
+[Pp]ublished/
+[Ww]eb[Pp]ublish/
+*.publishsettings
+
+# Archivos de configuración locales o sensibles
+appsettings.Local.json
+.env
+.env.*
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Archivos de respaldo de Visual Studio
+*.sdf
+*.opensdf
+*.ipch
+ipch/

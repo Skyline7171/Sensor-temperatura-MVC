@@ -1,0 +1,78 @@
+﻿@model MonitorSerial.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registrarse";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title center-align">
+                        Crear una cuenta
+                    </span>
+
+                    <p class="center-align">
+                        Complete los siguientes campos para registrarse.
+                    </p>
+
+                    @using (Html.BeginForm(
+                        "Register",
+                        "Account",
+                        FormMethod.Post,
+                        new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(
+                                 "",
+                                 new { @class = "red-text" }
+                             )
+
+                        <div class="input-field">
+                            @Html.TextBoxFor(m => m.Email)
+                            @Html.LabelFor(m => m.Email)
+                            @Html.ValidationMessageFor(
+                                     m => m.Email,
+                                     "",
+                                     new { @class = "red-text" }
+                                 )
+                        </div>
+
+                        <div class="input-field">
+                            @Html.PasswordFor(m => m.Password)
+                            @Html.LabelFor(m => m.Password)
+                            @Html.ValidationMessageFor(
+                                     m => m.Password,
+                                     "",
+                                     new { @class = "red-text" }
+                                 )
+                        </div>
+
+                        <div class="input-field">
+                            @Html.PasswordFor(m => m.ConfirmPassword)
+                            @Html.LabelFor(m => m.ConfirmPassword)
+                            @Html.ValidationMessageFor(
+                                     m => m.ConfirmPassword,
+                                     "",
+                                     new { @class = "red-text" }
+                                 )
+                        </div>
+
+                        <div class="center-align">
+                            <button type="submit"
+                                    class="btn waves-effect waves-light blue darken-3">
+                                Registrarse
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

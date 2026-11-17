@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="container">
+
+    <div class="section center-align">
+        <h3>MonitorSerial</h3>
+        <h5 class="grey-text text-darken-1">
+            Sistema de monitoreo de temperatura
+        </h5>
+
+        <p class="flow-text">
+            Bienvenido al sistema de adquisición y seguimiento
+            de temperaturas mediante comunicación serial.
+        </p>
+    </div>
+
+    <div class="divider"></div>
+
+    @model MonitorSerial.Models.Lectura
+
+    <div class="section">
+        <h5>Última lectura registrada</h5>
+
+        @if (Model != null)
+        {
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">
+                        @Model.Dispositivo.Nombre
+                    </span>
+
+                    <h3 class="blue-text text-darken-3">
+                        <i class="material-icons">device_thermostat</i>
+                        @Model.Temperatura.ToString("F2") °C
+                    </h3>
+
+                    <p>
+                        Fecha:
+                        @Model.FechaHora.ToString("dd/MM/yyyy HH:mm:ss")
+                    </p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card-panel amber lighten-4">
+                Todavía no hay lecturas registradas.
+            </div>
+        }
+    </div>
+
+    <div class="section">
+        <h5>¿Qué deseas hacer?</h5>
+
+        <div class="row">
+
+            <div class="col s12 m6">
+                <div class="card blue darken-3">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+                            Monitor de temperatura
+                        </span>
+
+                        <p>
+                            Conecta un dispositivo y registra
+                            nuevas mediciones de temperatura.
+                        </p>
+                    </div>
+
+                    <div class="card-action">
+                        <a href="@Url.Action("Index", "Sensor")"
+                           class="white-text">
+                            Ir al monitor
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m6">
+                <div class="card teal darken-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+                            Historial de lecturas
+                        </span>
+
+                        <p>
+                            Consulta las temperaturas registradas
+                            anteriormente en el sistema.
+                        </p>
+                    </div>
+
+                    <div class="card-action">
+                        <a href="@Url.Action("Index", "Lectura")"
+                           class="white-text">
+                            Consultar historial
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
