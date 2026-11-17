@@ -1,0 +1,15 @@
+<img width="1920" height="1080" alt="Captura de pantalla (1146)" src="https://github.com/user-attachments/assets/1cc099d3-fa70-497a-850c-54f12c7c8fb7" />
+<img width="1920" height="1080" alt="Captura de pantalla (1147)" src="https://github.com/user-attachments/assets/1def4251-e68a-4379-998c-f1c1a5b11577" />
+<img width="1920" height="1080" alt="Captura de pantalla (1148)" src="https://github.com/user-attachments/assets/384fecbb-243e-4301-8b61-1c9d6f6f39d7" />
+<img width="1920" height="1080" alt="Captura de pantalla (1149)" src="https://github.com/user-attachments/assets/d272a579-1114-4374-82d3-12ec094cf7a5" />
+<img width="1920" height="1080" alt="Captura de pantalla (1150)" src="https://github.com/user-attachments/assets/13b9a7ae-f73a-4ed7-b847-7350e840a8a6" />
+<img width="1920" height="1080" alt="Captura de pantalla (1151)" src="https://github.com/user-attachments/assets/4408ff32-f593-40e4-bb91-cf461fb9f356" />
+<img width="1920" height="1080" alt="Captura de pantalla (1152)" src="https://github.com/user-attachments/assets/d1086dcb-eaab-46e4-b76f-7338f26241a6" />
+<img width="1920" height="1080" alt="Captura de pantalla (1153)" src="https://github.com/user-attachments/assets/cdadfc47-09aa-4ae6-8c8e-111347426505" />
+<img width="1920" height="1080" alt="Captura de pantalla (1154)" src="https://github.com/user-attachments/assets/f6032cde-7ce9-4752-93f5-aa5eda1ecdf9" />
+<img width="1920" height="1080" alt="Captura de pantalla (1155)" src="https://github.com/user-attachments/assets/c68d0e80-8b08-49a3-9dae-b0ee42e1f684" />
+<img width="1920" height="1080" alt="Captura de pantalla (1156)" src="https://github.com/user-attachments/assets/b8ef8146-2d2f-4e2e-896e-dd5eef00b5d2" />
+<img width="1920" height="1080" alt="Captura de pantalla (1157)" src="https://github.com/user-attachments/assets/5c6344d2-0cb6-451b-a9b0-6c9dd00a4880" />
+<img width="1920" height="1080" alt="Captura de pantalla (1158)" src="https://github.com/user-attachments/assets/2c7464a1-a3fc-4901-a287-8b4f6e667f02" />
+<img width="1920" height="1080" alt="Captura de pantalla (1159)" src="https://github.com/user-attachments/assets/06b6a2b0-99d2-4df6-a6d0-7fca5cfc6bc6" />
+<img width="1920" height="1080" alt="Captura de pantalla (1160)" src="https://github.com/user-attachments/assets/44a5221a-c215-4cdd-9860-fcc8f7f40ec6" />
